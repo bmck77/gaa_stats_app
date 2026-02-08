@@ -1,42 +1,53 @@
 # gaa_stats_app
-This is a repository to store the code and dependencies of a GAA stats-taking app.
+This repository now contains a Python-only mobile app scaffold using Kivy.
 
-The app records the following in a Gaelic Football match:
+Features:
+- Record match events (team, minute, player, assistor, type)
+- On-device persistence with SQLite
+- Export events to CSV
+- Built-in match timer (start/stop/reset)
 
-1. Score
-2. Scorers
-3. Assistors
-4. Timeline
+Layout:
+- `app/` — Kivy app source and `requirements.txt`
+- `buildozer.spec` — configuration to build an Android APK using Buildozer
 
-**Scaffold:** Python with a Streamlit frontend.
+Run locally (desktop) for testing:
 
-**Prerequisites**
-- Python 3.10+ installed
-- PowerShell (Windows) or a POSIX shell
-
-**Quick setup (Windows PowerShell)**
-
-```powershell
+```bash
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-streamlit run app.py
+source .venv/bin/activate   # on Windows use .\.venv\Scripts\Activate.ps1
+pip install -r app/requirements.txt
+python app/main.py
 ```
 
-**Quick setup (cmd.exe)**
+Build APK (Linux / WSL recommended)
 
-```cmd
-python -m venv .venv
-.\.venv\Scripts\activate.bat
-pip install -r requirements.txt
-streamlit run app.py
+- Install Buildozer (on Ubuntu) or use the official `kivy/buildozer` Docker image. Building on macOS/Windows directly is not recommended.
+
+Example (WSL / Linux):
+
+```bash
+sudo apt update && sudo apt install -y buildozer python3-pip python3-virtualenv
+pip install --user --upgrade buildozer
+# from repository root
+buildozer -v android debug
+# generated apk will be in bin/ after successful build
 ```
 
-**Notes**
-- The main Streamlit app is `app.py`.
-- Edit `requirements.txt` to add more dependencies.
+Example (Docker):
 
-If you want, I can also create a `.gitignore`, add CI, or expand the app features (persistence, authentication, UI improvements).
+```bash
+docker run --rm -v "$(pwd):/home/user/hostcwd" -w /home/user/hostcwd kivy/buildozer buildozer android debug
+```
+
+Notes
+- The SQLite DB is stored in the app `user_data_dir` on device. The app writes exported CSV files into the same directory. On Android you may want to move or share them with `plyer` or use the Android API.
+- If you want Play Store release builds you'll need to generate a signing key and build a signed release APK (see Buildozer docs).
+
+If you want, I can:
+- replace the simple CSV export with `plyer` sharing to put the CSV into Downloads or invoke the Android share sheet,
+- add a nicer Kivy layout with `.kv` language and icons,
+- add CI instructions for building with Docker.
 
 **Client (React + Capacitor-ready)**
 
