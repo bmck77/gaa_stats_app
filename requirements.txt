@@ -1,0 +1,9 @@
+# Combined Python dependencies for this repository.
+# Use this file to install dependencies for either the backend (FastAPI)
+# or the Kivy mobile app during local development.
+
+fastapi
+uvicorn[standard]
+kivy
+plyer
+pydantic
