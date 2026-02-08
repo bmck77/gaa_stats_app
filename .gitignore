@@ -1,0 +1,34 @@
+# Virtualenvs
+.venv/
+venv/
+env/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Kivy / Buildozer / Android artifacts
+bin/
+*.apk
+*.aab
+.buildozer/
+.gradle/
+android/
+ios/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Logs, env files
+*.log
+.env
